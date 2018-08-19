@@ -2,11 +2,10 @@
 var videos = document.getElementsByTagName("video"),
 fraction = 0.5;
 var currentTime, startPlayingTime
+var video = videos[0];
 
-function checkScroll() {
-  for(var i = 0; i < videos.length; i++) {
-    var video = videos[i];
-    var x = video.offsetLeft, y = video.offsetTop, w = video.offsetWidth, h = video.offsetHeight, r = x + w, //right
+function getVisible() {
+  var x = video.offsetLeft, y = video.offsetTop, w = video.offsetWidth, h = video.offsetHeight, r = x + w, //right
         b = y + h, //bottom
         visibleX, visibleY, visible;
 
@@ -15,6 +14,11 @@ function checkScroll() {
 
     visible = visibleX * visibleY / (w * h);
 
+    return visible
+}
+
+function checkScroll() {
+    visible = getVisible()
     if (visible > fraction) {
         video.play();
         startPlayingTime = new Date(); 
@@ -23,7 +27,7 @@ function checkScroll() {
         video.pause();
         continuosPlayingTime = 0
     }
-  }
+  
 }
 
 // log video playtime

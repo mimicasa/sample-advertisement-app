@@ -1,0 +1,45 @@
+* {
+  font-size: 100%;
+  font-family: Arial;
+ }
+
+.article {
+  padding-top:0px; 
+  width:80%;
+  margin: auto;
+}
+
+p {
+  text-align: justify;
+}
+
+.advertisementWrapper::before {
+  content: 'Werbung';
+  text-align: center;
+  font-size: 12px;
+  display: block;
+  color: grey;
+}
+
+.advertisementWrapper__footer {
+  font-size: 10px;
+  color: grey;
+  text-align: right;
+}
+
+.advertisementWrapper__footer .advertisementWrapper__footer--text {
+  position: relative;
+  padding-right: 22px;
+  text-align: right;
+}
+.advertisementWrapper__footer .advertisementWrapper__footer--logo {
+  top: -12px;
+  position: relative;
+  text-align: right;
+}
+
+video {
+    padding:5px 0 5px 0; 
+    width: 100%;   
+}
+

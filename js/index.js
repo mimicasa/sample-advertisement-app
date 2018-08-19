@@ -23,6 +23,7 @@ function checkScroll(video) {
         video.play();
         startPlayingTime = new Date(); 
         console.log('video starts playing')
+        return
     } else {
         video.pause();
         continuosPlayingTime = 0

@@ -1,6 +1,5 @@
-
-var videos = document.getElementsByTagName("video"),
-fraction = 0.5;
+var videos = document.getElementsByTagName("video")
+var FRACTION = 0.5;
 var currentTime, startPlayingTime = new Date()
 
 function getVisible(video, window) {
@@ -19,7 +18,7 @@ function getVisible(video, window) {
 function checkScroll(video) {
     visible = getVisible(video, window)
 
-    if (visible > fraction) {
+    if (visible > FRACTION) {
         video.play();
         startPlayingTime = new Date(); 
         console.log('video starts playing')
@@ -28,7 +27,6 @@ function checkScroll(video) {
         video.pause();
         continuosPlayingTime = 0
     }
-  
 }
 
 // log video playtime
@@ -63,6 +61,5 @@ function checkVideoEnded() {
   })
 }
 
-window.addEventListener('scroll', checkScroll.bind(this, videos[0], 0.5), false);
-window.addEventListener('resize', checkScroll.bind(this, videos[0], 0.5), false);
-
+window.addEventListener('scroll', checkScroll.bind(this, videos[0], FRACTION), false);
+window.addEventListener('resize', checkScroll.bind(this, videos[0], FRACTION), false);

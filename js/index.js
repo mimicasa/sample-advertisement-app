@@ -1,24 +1,24 @@
 
 var videos = document.getElementsByTagName("video"),
 fraction = 0.5;
-var currentTime, startPlayingTime
-var video = videos[0];
+var currentTime, startPlayingTime = new Date()
 
-function getVisible() {
+function getVisible(video, window) {
   var x = video.offsetLeft, y = video.offsetTop, w = video.offsetWidth, h = video.offsetHeight, r = x + w, //right
         b = y + h, //bottom
         visibleX, visibleY, visible;
 
-    visibleX = Math.max(0, Math.min(w, window.pageXOffset + window.innerWidth - x, r - window.pageXOffset));
-    visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
 
-    visible = visibleX * visibleY / (w * h);
-
-    return visible
+        visibleX = Math.max(0, Math.min(w, window.pageXOffset + window.innerWidth - x, r - window.pageXOffset));
+        visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
+        
+        visible = visibleX * visibleY / (w * h);
+  return visible
 }
 
-function checkScroll() {
-    visible = getVisible()
+function checkScroll(video) {
+    visible = getVisible(video, window)
+
     if (visible > fraction) {
         video.play();
         startPlayingTime = new Date(); 
@@ -49,12 +49,19 @@ function logVideoTime(time) {
   if (playTimeRatio == 0.75) {
     console.log('Video reachs 75% length')
   }
+
+  return playTimeRatio
 }
 
-window.addEventListener('scroll', checkScroll, false);
-window.addEventListener('resize', checkScroll, false);
 // the event ended will not be catched in case loop is turned on, therefore a manual loop will triggered in order to catch the end event
-videos[0].addEventListener('ended', function(e) {
-  console.log('Video reachs 100% length')
-  this.play()
-})
+function checkVideoEnded() {
+  videos[0].addEventListener('ended', function(e) {
+    console.log('Video reachs 100% length')
+    this.play()
+    return
+  })
+}
+
+window.addEventListener('scroll', checkScroll.bind(this, videos[0], 0.5), false);
+window.addEventListener('resize', checkScroll.bind(this, videos[0], 0.5), false);
+
